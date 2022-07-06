@@ -1,7 +1,9 @@
+import React, { useState } from 'react';
 import { Send } from '@material-ui/icons'
 import { mobile } from "../responsive";
+import emailjs from 'emailjs-com';
 import styled from 'styled-components';
-
+import './ImpCss.css'; 
 const Container = styled.div`
   height: 60vh;
   background-color: #fcf5f5;
@@ -44,18 +46,53 @@ const Button = styled.button`
   background-color: teal;
   color: white;
 `;
-
+ const Form =styled.form`
+  flex: 1;
+  display:flex;
+ `
 const Newsletter = () => {
+ const [isValid, setIsValid] = useState(false);
+  const [message, setMessage] = useState('');
+
+  // The regular exprssion to validate the email pattern
+  // It may not be 100% perfect but can catch most email pattern errors and assures that the form is mostly right
+  const emailRegex = /\S+@\S+\.\S+/;
+
+  const validateEmail = (event) => {
+    const email = event.target.value;
+    if (emailRegex.test(email)) {
+      setIsValid(true);
+      setMessage('Your email looks good!');
+    } else {
+      setIsValid(false);
+      setMessage('Please enter a valid email!');
+    }
+  };
+
+  function sendEmail(e) {
+    e.preventDefault();   
+    console.log(process.env.REACT_APP_SERVICE_ID)
+    emailjs.sendForm(process.env.REACT_APP_SERVICE_ID, process.env.REACT_APP_TEMPLATE_ID, e.target,process.env.REACT_APP_PUBLIC_API).then((result) => {
+          window.location.reload()  
+      }, (error) => {
+          console.log(error.text);
+      });
+  }
   return (
     <Container>
         <Title>Newsletter</Title>
         <Desc>Get timely updates from your favorite products.</Desc>
         <InputContainer>
-        <Input placeholder="Your email"/>
+        <Form onSubmit={sendEmail}>
+        <Input placeholder="Your email" name="from_email" onChange={validateEmail}/>
         <Button>
         <Send/>
         </Button>
+         </Form>
         </InputContainer>
+         <div className={`message ${isValid ? 'success' : 'error'}`}>
+        {message}
+      </div>
     </Container>
   )
 }

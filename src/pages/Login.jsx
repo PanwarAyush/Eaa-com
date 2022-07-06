@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link as Linker} from "react-router-dom";
+import ShowAndHidePassword from "../components/PasswordShowHide";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -61,8 +62,8 @@ const Login = () => {
       <Wrapper>
         <Title>SIGN IN</Title> 
         <Form>
-          <Input placeholder="username" />
-          <Input placeholder="password" />
+          <Input placeholder="username" type="email" required/>
+          <ShowAndHidePassword data="password"/>
           <Linker to="/">
           <Button>LOGIN</Button>
           </Linker>
