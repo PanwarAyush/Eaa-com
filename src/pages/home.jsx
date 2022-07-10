@@ -6,7 +6,7 @@ import Categories  from '../components/Categories';
 import Products  from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
-
+import Bot from '../components/Chatbot/EAaChatBot'
 const home = () => {
   return (
     <div>
@@ -15,6 +15,7 @@ const home = () => {
      <Slider/>
      <Categories/>
      <Products/>
+      <Bot/>
      <Newsletter/>
      <Footer/>
     </div>

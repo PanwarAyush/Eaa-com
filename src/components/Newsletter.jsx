@@ -45,6 +45,10 @@ const Button = styled.button`
   border: none;
   background-color: teal;
   color: white;
+  cursor:pointer;
+  &:hover{
+   z-index:3;
+  }
 `;
  const Form =styled.form`
   flex: 1;
