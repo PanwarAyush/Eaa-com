@@ -4,6 +4,7 @@ import Announcement from "../components/Announcement";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import ProgressBar from "react-scroll-progress-bar";
 //import { mobile } from "../responsive";
 
 const Container = styled.div``;
@@ -36,7 +37,8 @@ const Option = styled.option``;
 const ProductList = () => {
   return (
     <Container>
-        <Announcement />
+     <ProgressBar height="7px" duration="0.2"/>
+    <Announcement />
       <Navbar />
       <Title>Dresses</Title>
       <FilterContainer>

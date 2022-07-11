@@ -7,9 +7,11 @@ import Products  from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import Bot from '../components/Chatbot/EAaChatBot'
+import ProgressBar from "react-scroll-progress-bar";
 const home = () => {
   return (
     <div>
+      <ProgressBar height="7px" duration="0.2"/>
       <Announcement/>
       <Navbar/>
      <Slider/>
