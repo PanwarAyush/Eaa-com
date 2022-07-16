@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/navbar";
 import ProgressBar from "react-scroll-progress-bar";
 //import { mobile } from "../responsive";
-
+import React, { useState } from "react"
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -143,12 +143,29 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  opacity:0.7;
+  background-color:black;
   color: white;
+  z-index:2;
+  cursor:pointer;
   font-weight: 600;
 `;
-
 const Cart = () => {
+const [product1,setProduct1]=useState(1);
+const [product2,setProduct2]=useState(1);
+const [totalPrice,setTotalPrice]=useState(50);
+const prod1=(sign)=>{
+   if(product1+sign>=1){
+   setProduct1(product1+sign);
+   setTotalPrice(totalPrice+30*sign);
+   }
+};
+ const prod2=(sign)=>{
+     if(product2+sign>=1){
+   setProduct2(product2+sign);
+   setTotalPrice(totalPrice+20*sign);
+     }
+};
   return (
     <Container>
       <ProgressBar height="7px" duration="0.2"/>
@@ -176,7 +193,7 @@ const Cart = () => {
                   <ProductId>
                     <b>ID:</b> 93813718293
                   </ProductId>
-                  <ProductColor color="black" />
+                  <ProductColor colorz="black" />
                   <ProductSize>
                     <b>Size:</b> 37.5
                   </ProductSize>
@@ -184,10 +201,13 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
+                <Button onClick={()=>prod2(1)}>
+                  <Add/>
+                   </Button>
+                  <ProductAmount>{product2}</ProductAmount>
+                   <Button onClick={()=>{prod2(-1)}}>
                   <Remove />
-                </ProductAmountContainer>
+                  </Button></ProductAmountContainer>
                 <ProductPrice>$ 30</ProductPrice>
               </PriceDetail>
             </Product>
@@ -210,9 +230,13 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>1</ProductAmount>
+                  <Button onClick={()=>prod1(1)}>
+                  <Add/>
+                   </Button>
+                  <ProductAmount>{product1}</ProductAmount>
+                   <Button onClick={()=>{prod1(-1)}}>
                   <Remove />
+                  </Button>
                 </ProductAmountContainer>
                 <ProductPrice>$ 20</ProductPrice>
               </PriceDetail>
@@ -222,7 +246,7 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {totalPrice}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -234,7 +258,7 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {totalPrice}</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>
